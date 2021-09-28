@@ -1,11 +1,11 @@
 const router = require("express").Router();
-const workout = require("../models/workout.js");
+const Workout = require("../models/workout.js");
 
 router.get("/workouts", (req, res) => {
-  workout.find({})
+  Workout.find({})
     .sort({ date: -1 })
-    .then(dbworkout => {
-      res.json(dbworkout);
+    .then(workout => {
+      res.json(workout);
     })
     .catch(err => {
       res.status(400).json(err);
@@ -13,10 +13,10 @@ router.get("/workouts", (req, res) => {
 });
 
 router.get("/workouts/range", (req, res) => {
-  workout.find({})
+  Workout.find({})
     .sort({ date: -1 })
-    .then(dbworkout => {
-      res.json(dbworkout);
+    .then(workout => {
+      res.json(workout);
     })
     .catch(err => {
       res.status(400).json(err);
@@ -25,8 +25,8 @@ router.get("/workouts/range", (req, res) => {
 
 router.post("/workouts", async ({ body }, res) => {
   try { 
-    const dbWorkout = await Workout.create({body});
-      res.json(dbworkout);
+    const workout = await Workout.create({body});
+      res.json(workout);
     }
     catch { 
       (err) => {
@@ -35,10 +35,10 @@ router.post("/workouts", async ({ body }, res) => {
   };
 });
 
-router.post("/workouts", ({ body }, res) => {
-  workout.insertMany(body)
-    .then(dbworkout => {
-      res.json(dbworkout);
+router.put("/workouts/:id", async ({ body }, res) => {
+  const response = await Workout.find(body)
+    .then(response => {
+      res.json(response);
     })
     .catch(err => {
       res.status(400).json(err);
