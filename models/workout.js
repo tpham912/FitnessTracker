@@ -9,7 +9,7 @@ const newWorOutSchema = new Schema({
   },
   exercises: [
     {
-      routine: {
+      type: {
         type: String,
         trim: true,
         required: "Enter an exercise routine",
@@ -24,7 +24,7 @@ const newWorOutSchema = new Schema({
         type: Number,
       },
 
-      weigh: {
+      weight: {
         type: Number,
       },
       reps: {
@@ -38,7 +38,27 @@ const newWorOutSchema = new Schema({
       },
     },
   ],
-});
+},
+{
+  toJSON: {
+    virtuals: true
+  }
+}
+);
+
+newWorOutSchema.virtual('totalDuration').get(function() {
+  if(this.exercises.length > 0){
+    let aggregateDuration = 0
+    this.exercises.forEach(exercise => {
+      aggregateDuration += exercise.duration
+      
+      // aggregateDuration = aggregateDuration + exercise.duration
+    })
+    return aggregateDuration
+  }else {
+    return 0
+  }
+})
 
 const Workout = mongoose.model("Workout", newWorOutSchema);
 

@@ -3,7 +3,7 @@ const Workout = require("../models/workout.js");
 
 router.get("/workouts", (req, res) => {
   Workout.find({})
-    .sort({ date: -1 })
+    // .sort({ date: -1 })
     .then(workout => {
       res.json(workout);
     })
@@ -14,7 +14,7 @@ router.get("/workouts", (req, res) => {
 
 router.get("/workouts/range", (req, res) => {
   Workout.find({})
-    .sort({ date: -1 })
+    // .sort({ date: -1 })
     .then(workout => {
       res.json(workout);
     })
@@ -35,8 +35,11 @@ router.post("/workouts", async ({ body }, res) => {
   };
 });
 
-router.put("/workouts/:id", async ({ body }, res) => {
-  const response = await Workout.find(body)
+router.put("/workouts/:id", async ({ body, params }, res) => {
+  const response = await Workout.findOneAndUpdate({_id: params.id},
+    {
+      $push: {exercises: body}
+    })
     .then(response => {
       res.json(response);
     })
