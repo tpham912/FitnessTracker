@@ -39,7 +39,7 @@ The dashboard represents all the logged workout on a given day by the user
 # Links
 
 - [GitHub Link](https://github.com/tpham912/)
-- [Heorku Link](https://evening-spire-09719.herokuapp.com/?id=61550196fe1a9600162809e1)
+- [Heroku Link](https://evening-spire-09719.herokuapp.com/?id=61550196fe1a9600162809e1)
 
 # Contributor 
 
